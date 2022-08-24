@@ -22,7 +22,7 @@ export default function ProductMenu({ categories }) {
                 columnSpacing={{ xs: 1, sm: 2, md: 3 }}
               >
                 {category.items.map((product) => (
-                  <Grid xs={4}>
+                  <Grid xs={12} sm={6} md={4}>
                     <MediaCard product={product} />
                   </Grid>
                 ))}

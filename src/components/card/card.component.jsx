@@ -4,6 +4,8 @@ import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Unstable_Grid2/Grid2";
+import { Container } from "@mui/material";
 
 export default function MediaCard({ product }) {
   return (
@@ -15,9 +17,30 @@ export default function MediaCard({ product }) {
         alt={product.name}
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          {product.name} {product.price}
-        </Typography>
+        <Container maxWidth="lg">
+          <Grid container>
+            <Grid
+              xs={6}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography gutterBottom variant="h5" component="div">
+                {product.name}
+              </Typography>
+            </Grid>
+            <Grid
+              xs={6}
+              display="flex"
+              justifyContent="center"
+              alignItems="center"
+            >
+              <Typography gutterBottom variant="h5" component="div">
+                ${product.price}
+              </Typography>
+            </Grid>
+          </Grid>
+        </Container>
       </CardContent>
       <CardActions>
         <Button size="small">Add to cart</Button>
