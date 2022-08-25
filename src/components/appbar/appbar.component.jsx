@@ -12,9 +12,11 @@ import { Outlet } from "react-router-dom";
 import { Container } from "@mui/system";
 import { Link as RouterLink, useLocation } from "react-router-dom";
 import Link from "@mui/material/Link";
+import LoginLogoutButton from "../buttons/login-logout-button.component";
 
 export default function ButtonAppBar() {
   const location = useLocation();
+
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static">
@@ -39,14 +41,7 @@ export default function ButtonAppBar() {
           >
             <Button color="inherit">Shop</Button>
           </Link>
-          <Link
-            color="inherit"
-            underline="none"
-            component={RouterLink}
-            to="/login"
-          >
-            <Button color="inherit">Login</Button>
-          </Link>
+          <LoginLogoutButton />
           <MenuWithIcon />
         </Toolbar>
       </AppBar>
