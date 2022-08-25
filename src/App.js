@@ -3,22 +3,31 @@ import ButtonAppBar from "./components/appbar/appbar.component";
 import { useEffect, useState } from "react";
 import { getCategoriesAndDocuments } from "./utils/firebase/firebase.util";
 import ProductMenu from "./components/product-menu/product-menu.component";
+import { Route, Routes } from "react-router-dom";
+import SignIn from "./routes/sign-in-or-up/sign-in.route";
+import { useDispatch } from "react-redux";
+import { checkUserSession } from "./store/user/user.action";
+import { startFetchCategories } from "./store/categories/categories.action";
+import Shop from "./routes/shop/shop.route";
 
 function App() {
-  const [data, setData] = useState(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    const getData = async () => {
-      setData(await getCategoriesAndDocuments());
-    };
-    getData();
-  }, []);
+    dispatch(checkUserSession());
+  }, [dispatch]);
+  // load the categories
+  useEffect(() => {
+    dispatch(startFetchCategories());
+  }, [dispatch]);
 
   return (
-    <div className="App">
-      <ButtonAppBar />
-      <ProductMenu categories={data} />
-    </div>
+    <Routes>
+      <Route path="/" element={<ButtonAppBar />}>
+        <Route path="shop/" element={<Shop />}></Route>
+        <Route path="login/" element={<SignIn />}></Route>
+      </Route>
+    </Routes>
   );
 }
 
