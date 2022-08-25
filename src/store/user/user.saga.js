@@ -22,13 +22,14 @@ function* saveUserInDatabase(userAuth, addtionalInfo = {}) {
       ...addtionalInfo,
     });
 
-    userData = addtionalInfo
-      ? {
-          ...userData.data(),
-          id: userData.id,
-          displayName: addtionalInfo.displayName,
-        }
-      : { id: userData.id, ...userData.data() };
+    userData =
+      Object.keys(addtionalInfo).length > 0
+        ? {
+            ...userData.data(),
+            id: userData.id,
+            displayName: addtionalInfo.displayName,
+          }
+        : { id: userData.id, ...userData.data() };
 
     yield put(signInSuccess({ ...userData }));
   } catch (error) {

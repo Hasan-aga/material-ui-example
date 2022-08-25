@@ -11,6 +11,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import {
+  googleSignInStart,
+  signUpStart,
+  toggleSigninSignup,
+} from "../../store/user/user.action";
 
 function Copyright(props) {
   return (
@@ -33,13 +39,31 @@ function Copyright(props) {
 const theme = createTheme();
 
 export default function SignUp() {
+  const dispatch = useDispatch();
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get("email"),
       password: data.get("password"),
+      displayName: data.get("displayName"),
     });
+    dispatch(
+      signUpStart(
+        data.get("email"),
+        data.get("password"),
+        data.get("displayName")
+      )
+    );
+  };
+
+  const handleLogGoogleUser = async () => {
+    dispatch(googleSignInStart());
+  };
+
+  const handleOpenSigninForm = () => {
+    dispatch(toggleSigninSignup());
   };
 
   return (
@@ -67,27 +91,18 @@ export default function SignUp() {
             sx={{ mt: 3 }}
           >
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="displayName"
                   required
                   fullWidth
-                  id="firstName"
-                  label="First Name"
+                  id="displayName"
+                  label="Display Name"
                   autoFocus
                 />
               </Grid>
-              <Grid item xs={12} sm={6}>
-                <TextField
-                  required
-                  fullWidth
-                  id="lastName"
-                  label="Last Name"
-                  name="lastName"
-                  autoComplete="family-name"
-                />
-              </Grid>
+
               <Grid item xs={12}>
                 <TextField
                   required
@@ -118,18 +133,42 @@ export default function SignUp() {
                 />
               </Grid>
             </Grid>
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+            <Box
+              sx={{
+                marginTop: 1,
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                rowGap: 0,
+              }}
             >
-              Sign Up
-            </Button>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 1 }}
+              >
+                Sign up
+              </Button>
+              <Button
+                onClick={handleLogGoogleUser}
+                color="secondary"
+                fullWidth
+                variant="contained"
+                sx={{ mb: 2 }}
+              >
+                Sign up with Google
+              </Button>
+            </Box>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
-                  Already have an account? Sign in
+                <Link
+                  component="button"
+                  type="button"
+                  onClick={handleOpenSigninForm}
+                  variant="body2"
+                >
+                  {"Already have an account? Sign in"}
                 </Link>
               </Grid>
             </Grid>

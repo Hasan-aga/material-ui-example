@@ -2,8 +2,6 @@ import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import TextField from "@mui/material/TextField";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import Checkbox from "@mui/material/Checkbox";
 import Link from "@mui/material/Link";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -13,13 +11,11 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  selectUserSignInError,
-  selectCurrentUser,
-} from "../../store/user/user.selectors";
+import { selectUserSignInError } from "../../store/user/user.selectors";
 import {
   emailSignInStart,
   googleSignInStart,
+  toggleSigninSignup,
 } from "../../store/user/user.action";
 import { Alert, Collapse } from "@mui/material";
 
@@ -45,7 +41,6 @@ const theme = createTheme();
 
 export default function SignIn() {
   const userError = useSelector(selectUserSignInError);
-  const currentUser = useSelector(selectCurrentUser);
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
 
@@ -61,6 +56,10 @@ export default function SignIn() {
 
   const handleLogGoogleUser = async () => {
     dispatch(googleSignInStart());
+  };
+
+  const handleOpenSignupForm = () => {
+    dispatch(toggleSigninSignup());
   };
 
   return (
@@ -146,7 +145,12 @@ export default function SignIn() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link
+                  component="button"
+                  type="button"
+                  onClick={handleOpenSignupForm}
+                  variant="body2"
+                >
                   {"Don't have an account? Sign Up"}
                 </Link>
               </Grid>

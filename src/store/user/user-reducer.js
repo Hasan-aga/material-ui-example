@@ -6,6 +6,7 @@ const INITIAL_USER_STATE = {
   error: null,
   signInError: null,
   signUpError: null,
+  toggleSigninSignup: true,
 };
 
 export const userReducer = function (state = INITIAL_USER_STATE, action) {
@@ -34,6 +35,11 @@ export const userReducer = function (state = INITIAL_USER_STATE, action) {
       return {
         ...state,
         signUpError: payload,
+      };
+    case USER_TYPES.TOGGLE_SIGNIN_SIGNUP:
+      return {
+        ...state,
+        toggleSigninSignup: !state.toggleSigninSignup,
       };
     default:
       return state;

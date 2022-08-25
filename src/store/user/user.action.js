@@ -45,3 +45,6 @@ export const signUpFail = (error) => {
     payload: error,
   };
 };
+export const toggleSigninSignup = () => {
+  return { type: USER_TYPES.TOGGLE_SIGNIN_SIGNUP };
+};
