@@ -6,10 +6,19 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Unstable_Grid2/Grid2";
 import { Container } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { selectCartProducts } from "../../store/cart/cart.selector";
+import { addToCart } from "../../store/cart/cart-action";
 
 export default function MediaCard({ product }) {
+  const dispatch = useDispatch();
+  const existingProducts = useSelector(selectCartProducts);
+
+  const handleAddToCart = () => {
+    dispatch(addToCart(product, existingProducts));
+  };
   return (
-    <Card sx={{ maxWidth: 345 }}>
+    <Card id={product.name + product.imageUrl} sx={{ maxWidth: 345 }}>
       <CardMedia
         component="img"
         height="300"
@@ -43,7 +52,9 @@ export default function MediaCard({ product }) {
         </Container>
       </CardContent>
       <CardActions>
-        <Button size="small">Add to cart</Button>
+        <Button onClick={handleAddToCart} size="small">
+          Add to cart
+        </Button>
       </CardActions>
     </Card>
   );

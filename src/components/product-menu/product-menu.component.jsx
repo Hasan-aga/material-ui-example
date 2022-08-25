@@ -12,7 +12,7 @@ export default function ProductMenu({ categories }) {
       <CssBaseline />
       <Stack spacing={8}>
         {Object.keys(categories).map((categoryTitle) => (
-          <Container maxWidth="lg">
+          <Container id={categoryTitle} maxWidth="lg">
             <Typography textTransform="capitalize" variant="h2" gutterBottom>
               {categoryTitle}
             </Typography>
