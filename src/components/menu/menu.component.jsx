@@ -1,5 +1,6 @@
 import { Fragment, useState } from "react";
 import {
+  Badge,
   Box,
   Button,
   Collapse,
@@ -11,7 +12,10 @@ import {
 } from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useSelector } from "react-redux";
-import { selectCartProducts } from "../../store/cart/cart.selector";
+import {
+  selectCartCount,
+  selectCartProducts,
+} from "../../store/cart/cart.selector";
 import MenuCard from "../card/menu-card.component";
 import { TransitionGroup } from "react-transition-group";
 import EmptyCartIcon from "@mui/icons-material/ProductionQuantityLimits";
@@ -23,6 +27,7 @@ export default function MenuWithIcon() {
   const open = Boolean(anchorEl);
 
   const cartProducts = useSelector(selectCartProducts);
+  const cartCount = useSelector(selectCartCount);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -40,7 +45,9 @@ export default function MenuWithIcon() {
         aria-expanded={open ? "true" : undefined}
         onClick={handleClick}
       >
-        <ShoppingBagIcon />
+        <Badge badgeContent={cartCount} color="secondary">
+          <ShoppingBagIcon />
+        </Badge>
       </IconButton>
       <Menu
         sx={{ maxHeight: "70vh" }}
