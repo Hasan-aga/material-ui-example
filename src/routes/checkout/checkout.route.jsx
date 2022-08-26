@@ -10,6 +10,8 @@ import {
 import { useSelector } from "react-redux";
 import { TransitionGroup } from "react-transition-group";
 import MenuCard from "../../components/card/menu-card.component";
+import PaymentForm from "../../components/payment-form/payment-form.component";
+import StripePayment from "../../components/payment-form/StripePayment.component";
 import {
   selectCartProducts,
   selectCartTotal,
@@ -20,7 +22,7 @@ const Checkout = function () {
   const cartTotal = useSelector(selectCartTotal);
   console.log("checkout with ", cartProducts);
   return (
-    <Box sx={{ display: "flex", padding: 10, maxHeight: "50vh" }}>
+    <Box sx={{ display: "flex", padding: 10, height: "fit-content" }}>
       <List>
         {cartProducts.map((product) => (
           <ListItem key={product.imageUrl}>
@@ -35,6 +37,7 @@ const Checkout = function () {
       <Card sx={{ minWidth: 400, margin: 2, pl: 1, pt: 2 }}>
         <CardContent>
           <Typography variant="h5">Total: {cartTotal}</Typography>
+          <StripePayment />
         </CardContent>
       </Card>
     </Box>
