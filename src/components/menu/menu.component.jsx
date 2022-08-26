@@ -1,10 +1,22 @@
 import { Fragment, useState } from "react";
-import { Collapse, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Box,
+  Button,
+  Collapse,
+  Container,
+  IconButton,
+  Menu,
+  MenuItem,
+  Typography,
+} from "@mui/material";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag";
 import { useSelector } from "react-redux";
 import { selectCartProducts } from "../../store/cart/cart.selector";
 import MenuCard from "../card/menu-card.component";
 import { TransitionGroup } from "react-transition-group";
+import EmptyCartIcon from "@mui/icons-material/ProductionQuantityLimits";
+import { Link as RouterLink } from "react-router-dom";
+import { Link } from "@mui/material";
 
 export default function MenuWithIcon() {
   const [anchorEl, setAnchorEl] = useState(null);
@@ -31,6 +43,7 @@ export default function MenuWithIcon() {
         <ShoppingBagIcon />
       </IconButton>
       <Menu
+        sx={{ maxHeight: "70vh" }}
         id="basic-menu"
         anchorEl={anchorEl}
         open={open}
@@ -40,17 +53,31 @@ export default function MenuWithIcon() {
         }}
       >
         {cartProducts.length === 0 ? (
-          <MenuItem>Your cart is empty</MenuItem>
+          <MenuItem>
+            <Box sx={{ display: "flex", flexDirection: "column" }}>
+              <Typography>Your cart is empty</Typography>
+              <IconButton size="large">
+                <EmptyCartIcon />
+              </IconButton>
+            </Box>
+          </MenuItem>
         ) : (
-          cartProducts.map((product) => (
-            <MenuItem>
-              <TransitionGroup>
-                <Collapse key={product.name + 1}>
-                  <MenuCard product={product} />
-                </Collapse>
-              </TransitionGroup>
-            </MenuItem>
-          ))
+          <Container>
+            {cartProducts.map((product) => (
+              <MenuItem key={product.imageUrl}>
+                <TransitionGroup>
+                  <Collapse key={product.name + 1}>
+                    <MenuCard product={product} />
+                  </Collapse>
+                </TransitionGroup>
+              </MenuItem>
+            ))}
+            <Link component={RouterLink} to="/checkout">
+              <Button fullWidth variant="contained" primary>
+                Checkout
+              </Button>
+            </Link>
+          </Container>
         )}
       </Menu>
     </Fragment>

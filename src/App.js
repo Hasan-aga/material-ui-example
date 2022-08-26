@@ -10,6 +10,7 @@ import { checkUserSession } from "./store/user/user.action";
 import { startFetchCategories } from "./store/categories/categories.action";
 import Shop from "./routes/shop/shop.route";
 import SignHomepage from "./routes/sign-in-or-up/sign-homepage.route";
+import Checkout from "./routes/checkout/checkout.route";
 
 function App() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
       <Route path="/" element={<ButtonAppBar />}>
         <Route path="shop/" element={<Shop />}></Route>
         <Route path="login/" element={<SignHomepage />}></Route>
+        <Route path="checkout/" element={<Checkout />}></Route>
       </Route>
     </Routes>
   );
