@@ -21,6 +21,17 @@ export const selectCategoriesMap = createSelector(
   }
 );
 
+export const selectCategoriesPreview = createSelector(
+  [selectCategoriesMap, (state, previewSize) => previewSize],
+  (categoriesMap, previewSize) => {
+    const categoryWithPreview = {};
+    for (const cat in categoriesMap) {
+      categoryWithPreview[cat] = categoriesMap[cat].slice(0, previewSize);
+    }
+    return categoryWithPreview;
+  }
+);
+
 export const selectCategoriesAreFetching = createSelector(
   [selectCategoriesReducer],
   (categorySlice) => categorySlice.fetching

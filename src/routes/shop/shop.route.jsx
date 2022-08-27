@@ -1,18 +1,12 @@
-import { Fragment } from "react";
-import { useSelector } from "react-redux";
-import ProductMenu from "../../components/product-menu/product-menu.component";
-import {
-  selectCategoriesAreFetching,
-  selectCategoriesMap,
-} from "../../store/categories/categories.selector";
+import { Routes, Route } from "react-router-dom";
+import Preview from "../../components/preview/preview.component";
 
 const Shop = function () {
-  const categoryMap = useSelector(selectCategoriesMap);
-  const isFetchingCategories = useSelector(selectCategoriesAreFetching);
-  return isFetchingCategories ? (
-    <Fragment />
-  ) : (
-    <ProductMenu categories={categoryMap} />
+  return (
+    <Routes>
+      <Route index element={<Preview size={3} />}></Route>
+      <Route path=":category" element={<Preview />}></Route>
+    </Routes>
   );
 };
 

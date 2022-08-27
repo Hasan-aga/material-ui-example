@@ -25,7 +25,7 @@ function App() {
     <Routes>
       <Route path="/" element={<ButtonAppBar />}>
         <Route index element={<Homepage />}></Route>
-        <Route path="shop/" element={<Shop />}></Route>
+        <Route path="shop/*" element={<Shop />}></Route>
         <Route path="login/" element={<SignHomepage />}></Route>
         <Route path="checkout/" element={<Checkout />}></Route>
       </Route>
