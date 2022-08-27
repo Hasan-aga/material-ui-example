@@ -10,11 +10,16 @@ import { ReactComponent as CrownIcon } from "../../assets/crown.svg";
 import { SvgIcon } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import { Container } from "@mui/system";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useLocation } from "react-router-dom";
 import Link from "@mui/material/Link";
 import LoginLogoutButton from "../buttons/login-logout-button.component";
 
 export default function ButtonAppBar() {
+  const location = useLocation();
+  const currentPath = location.pathname.slice(
+    location.pathname.lastIndexOf("/") + 1
+  );
+
   return (
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static">
@@ -30,7 +35,9 @@ export default function ButtonAppBar() {
               <SvgIcon component={CrownIcon} inheritViewBox />
             </IconButton>
           </Link>
-
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+            {currentPath.length > 6 ? "" : currentPath}
+          </Typography>
           <Link
             color="inherit"
             underline="none"
