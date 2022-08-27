@@ -66,7 +66,7 @@ const PaymentForm = () => {
           saveCurrentCartToHistory(cartProducts, existingHistoryProducts)
         );
         dispatch(clearCart());
-        navigate("../success");
+        navigate("../success/your-payment-was-successful");
       }
     }
   };

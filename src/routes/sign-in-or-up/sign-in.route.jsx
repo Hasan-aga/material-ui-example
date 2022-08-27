@@ -11,13 +11,17 @@ import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { selectUserSignInError } from "../../store/user/user.selectors";
+import {
+  selectCurrentUser,
+  selectUserSignInError,
+} from "../../store/user/user.selectors";
 import {
   emailSignInStart,
   googleSignInStart,
   toggleSigninSignup,
 } from "../../store/user/user.action";
 import { Alert, Collapse } from "@mui/material";
+import { useEffect } from "react";
 
 function Copyright(props) {
   return (
@@ -41,8 +45,13 @@ const theme = createTheme();
 
 export default function SignIn() {
   const userError = useSelector(selectUserSignInError);
+  const currentUser = useSelector(selectCurrentUser);
   const navigateTo = useNavigate();
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (currentUser) navigateTo("../success/welcome-friend");
+  }, [currentUser]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

@@ -29,7 +29,7 @@ function App() {
         <Route path="shop/*" element={<Shop />}></Route>
         <Route path="login/" element={<SignHomepage />}></Route>
         <Route path="checkout/" element={<Checkout />}></Route>
-        <Route path="success" element={<SuccessfulPayment />}></Route>
+        <Route path="success/:message" element={<SuccessfulPayment />}></Route>
       </Route>
     </Routes>
   );
