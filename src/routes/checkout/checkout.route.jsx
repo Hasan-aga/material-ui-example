@@ -23,13 +23,18 @@ const Checkout = function () {
   const cartTotal = useSelector(selectCartTotal);
   console.log("checkout with ", cartProducts);
   return (
-    <Grid container justifyContent="center" alignItems="center" pt={10}>
+    <Grid
+      container
+      justifyContent="center"
+      alignItems="center"
+      pt={10}
+      spacing={10}
+    >
       <Grid item sm={12} md={6}>
         <Typography variant="h2">Total: ${cartTotal}</Typography>
         <List
           sx={{
             width: "100%",
-            bgcolor: "background.paper",
             overflow: "auto",
             maxHeight: "70vh",
             "& ul": { padding: 0 },

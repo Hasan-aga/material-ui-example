@@ -6,6 +6,8 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import { CssBaseline, ThemeProvider } from "@mui/material";
+import navyBlueTheme from "./themes/navy-blue.theme";
 
 if (process.env.NODE_ENV === "production") {
   console.log = () => {};
@@ -18,7 +20,10 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <App />
+        <ThemeProvider theme={navyBlueTheme}>
+          <CssBaseline enableColorScheme />
+          <App />
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>
