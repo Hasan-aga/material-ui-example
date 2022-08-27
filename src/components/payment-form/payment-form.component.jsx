@@ -16,9 +16,10 @@ import { saveCurrentCartToHistory } from "../../store/history/history.actions";
 import { useNavigate } from "react-router-dom";
 import { selectHistoryBoughtItems } from "../../store/history/history.selector";
 import { Checkmark } from "react-checkmark";
-import { Box, Button, Container } from "@mui/material";
+import { Box, Button, CircularProgress, Container } from "@mui/material";
 import { Payment } from "@mui/icons-material";
 import { stripePromise } from "../../utils/stripe/stripe.utils";
+import SuccessfulPayment from "../../routes/checkout/successful-payment.route";
 
 const PaymentForm = () => {
   const stripe = useStripe();
@@ -28,11 +29,10 @@ const PaymentForm = () => {
     if (!stripe) return;
   });
 
-  const currentUser = useSelector(selectCurrentUser);
   const [isMakingPayment, setIsMakingPayment] = useState(false);
-  const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const cartProducts = useSelector(selectCartProducts);
   const existingHistoryProducts = useSelector(selectHistoryBoughtItems);
 
@@ -41,6 +41,8 @@ const PaymentForm = () => {
     if (!stripe || !elements) {
       return;
     }
+
+    setIsMakingPayment(true);
 
     const paymentResult = await stripe.confirmPayment({
       elements,
@@ -54,12 +56,11 @@ const PaymentForm = () => {
     } else {
       if (paymentResult.paymentIntent.status === "succeeded") {
         setIsMakingPayment(false);
-        setIsPaymentSuccessful(true);
-        alert("Payment Successful");
         dispatch(
           saveCurrentCartToHistory(cartProducts, existingHistoryProducts)
         );
         dispatch(clearCart());
+        navigate("../success");
       }
     }
   };
@@ -78,7 +79,9 @@ const PaymentForm = () => {
       >
         <h2>Credit card payment:</h2>
         <PaymentElement id="payment-element" />
-        <Button type="submit">Pay now</Button>
+        <Button type="submit">
+          {isMakingPayment ? <CircularProgress /> : "Pay now"}
+        </Button>
       </form>
     </Container>
   );

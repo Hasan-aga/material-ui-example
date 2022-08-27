@@ -23,8 +23,8 @@ const Checkout = function () {
   const cartTotal = useSelector(selectCartTotal);
   console.log("checkout with ", cartProducts);
   return (
-    <Grid container justifyContent="center" alignItems="center">
-      <Grid item sm={12} md={6} pt={2}>
+    <Grid container justifyContent="center" alignItems="center" pt={10}>
+      <Grid item sm={12} md={6}>
         <List
           sx={{
             width: "100%",
@@ -48,7 +48,7 @@ const Checkout = function () {
       <Grid item sm={6} md={6}>
         <Card>
           <CardContent>
-            <Typography variant="h5">Total: {cartTotal}</Typography>
+            <Typography variant="h8">Total: ${cartTotal}</Typography>
             <StripePayment />
           </CardContent>
         </Card>
