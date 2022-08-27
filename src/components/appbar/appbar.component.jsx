@@ -35,7 +35,11 @@ export default function ButtonAppBar() {
               <SvgIcon component={CrownIcon} inheritViewBox />
             </IconButton>
           </Link>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, textTransform: "uppercase" }}
+          >
             {currentPath.length > 6 ? "" : currentPath}
           </Typography>
           <Link

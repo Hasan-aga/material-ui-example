@@ -10,6 +10,7 @@ import SignHomepage from "./routes/sign-in-or-up/sign-homepage.route";
 import Checkout from "./routes/checkout/checkout.route";
 import Homepage from "./routes/homepage/homepage.route";
 import SuccessfulPayment from "./routes/checkout/successful-payment.route";
+import NotFound from "./components/not-found/not-found.component";
 
 function App() {
   const dispatch = useDispatch();
@@ -30,6 +31,7 @@ function App() {
         <Route path="login/" element={<SignHomepage />}></Route>
         <Route path="checkout/" element={<Checkout />}></Route>
         <Route path="success/:message" element={<SuccessfulPayment />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Route>
     </Routes>
   );
