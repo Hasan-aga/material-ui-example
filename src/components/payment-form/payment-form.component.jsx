@@ -16,7 +16,13 @@ import { saveCurrentCartToHistory } from "../../store/history/history.actions";
 import { useNavigate } from "react-router-dom";
 import { selectHistoryBoughtItems } from "../../store/history/history.selector";
 import { Checkmark } from "react-checkmark";
-import { Box, Button, CircularProgress, Container } from "@mui/material";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Container,
+  Typography,
+} from "@mui/material";
 import { Payment } from "@mui/icons-material";
 import { stripePromise } from "../../utils/stripe/stripe.utils";
 import SuccessfulPayment from "../../routes/checkout/successful-payment.route";
@@ -77,7 +83,10 @@ const PaymentForm = () => {
         }}
         onSubmit={paymentHandler}
       >
-        <h2>Credit card payment:</h2>
+        <Typography variant="h2">Credit card payment</Typography>{" "}
+        <Typography variant="overline">
+          Hint: use 4242 4242 4242 4242
+        </Typography>
         <PaymentElement id="payment-element" />
         <Button type="submit">
           {isMakingPayment ? <CircularProgress /> : "Pay now"}
