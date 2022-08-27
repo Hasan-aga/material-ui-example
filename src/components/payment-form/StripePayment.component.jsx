@@ -8,6 +8,7 @@ const StripePayment = () => {
 
   // function that calls the backend with payment info
   const makeStripePayment = async () => {
+    console.log("getting client secret...");
     try {
       const response = await fetch(
         "/.netlify/functions/create-payment-intent",
@@ -16,7 +17,9 @@ const StripePayment = () => {
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify({ amount: 1111 }),
+          body: JSON.stringify({
+            amount: 50,
+          }),
         }
       ).then((res) => {
         console.log(res);

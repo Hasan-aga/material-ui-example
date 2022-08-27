@@ -40,7 +40,8 @@ const PaymentForm = () => {
   const navigateTo = useNavigate();
 
   // function that calls the backend with payment info
-  const makeStripePayment = async (amount = 0) => {
+  const makeStripePayment = async (amount = 1212) => {
+    console.log("making a payment for: ", amount);
     setIsMakingPayment(true);
     const response = await fetch("/.netlify/functions/create-payment-intent", {
       method: "post",
@@ -63,7 +64,7 @@ const PaymentForm = () => {
   }, []);
 
   const paymentHandler = async (e) => {
-    console.log("handliiiiiiiiiiiiiiiiiiing");
+    console.log("handling payment for: ", amount);
     e.preventDefault();
     if (!stripe || !elements) {
       return;
@@ -71,10 +72,10 @@ const PaymentForm = () => {
 
     makeStripePayment(amount);
 
-    const paymentResult = await stripe.confirmCardPayment(
-      clientSecret,
-      PaymentElement
-    );
+    const paymentResult = await stripe.confirmPayment({
+      elements,
+      redirect: "if_required",
+    });
 
     if (paymentResult.error) {
       console.error("error in submitting payment ", paymentResult.error);
