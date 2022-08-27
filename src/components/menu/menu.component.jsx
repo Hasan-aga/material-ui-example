@@ -61,11 +61,16 @@ export default function MenuWithIcon() {
       >
         {cartProducts.length === 0 ? (
           <MenuItem>
-            <Box sx={{ display: "flex", flexDirection: "column" }}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                rowGap: "20px",
+              }}
+            >
               <Typography>Your cart is empty</Typography>
-              <IconButton size="large">
-                <EmptyCartIcon />
-              </IconButton>
+              <EmptyCartIcon />
             </Box>
           </MenuItem>
         ) : (
