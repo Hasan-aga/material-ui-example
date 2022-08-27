@@ -1,10 +1,13 @@
 import { Elements } from "@stripe/react-stripe-js";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { selectCartTotal } from "../../store/cart/cart.selector";
 import { stripePromise } from "../../utils/stripe/stripe.utils";
 import PaymentForm from "./payment-form.component";
 
 const StripePayment = () => {
   const [clientSecret, setClientSecret] = useState("");
+  const amount = useSelector(selectCartTotal);
 
   // function that calls the backend with payment info
   const makeStripePayment = async () => {
@@ -18,7 +21,7 @@ const StripePayment = () => {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            amount: 50,
+            amount: amount * 100,
           }),
         }
       ).then((res) => {

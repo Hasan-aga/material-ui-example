@@ -23,54 +23,24 @@ import { stripePromise } from "../../utils/stripe/stripe.utils";
 const PaymentForm = () => {
   const stripe = useStripe();
   const elements = useElements();
-  const [clientSecret, setClientSecret] = useState("");
 
   useEffect(() => {
     if (!stripe) return;
   });
 
   const currentUser = useSelector(selectCurrentUser);
-  const amount = useSelector(selectCartTotal);
   const [isMakingPayment, setIsMakingPayment] = useState(false);
   const [isPaymentSuccessful, setIsPaymentSuccessful] = useState(false);
 
   const dispatch = useDispatch();
   const cartProducts = useSelector(selectCartProducts);
   const existingHistoryProducts = useSelector(selectHistoryBoughtItems);
-  const navigateTo = useNavigate();
-
-  // function that calls the backend with payment info
-  const makeStripePayment = async (amount = 1212) => {
-    console.log("making a payment for: ", amount);
-    setIsMakingPayment(true);
-    const response = await fetch("/.netlify/functions/create-payment-intent", {
-      method: "post",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ amount: amount * 100 }),
-    }).then((res) => res.json());
-
-    const {
-      paymentIntent: { client_secret },
-    } = response;
-
-    setClientSecret(client_secret);
-  };
-
-  //get clientSecret from serverless function backend
-  useEffect(() => {
-    makeStripePayment();
-  }, []);
 
   const paymentHandler = async (e) => {
-    console.log("handling payment for: ", amount);
     e.preventDefault();
     if (!stripe || !elements) {
       return;
     }
-
-    makeStripePayment(amount);
 
     const paymentResult = await stripe.confirmPayment({
       elements,
@@ -92,12 +62,6 @@ const PaymentForm = () => {
         dispatch(clearCart());
       }
     }
-  };
-
-  const navigateToGreet = () => {
-    setTimeout(() => {
-      navigateTo("/greet");
-    }, 1000);
   };
 
   return (
