@@ -12,10 +12,13 @@ const Homepage = () => {
       {Object.keys(categories).map((categoryName) => {
         const categoryDetails = {};
         categoryDetails.name = categoryName;
-        categoryDetails.imageUrl = categories[categoryName][1].imageUrl;
+        categoryDetails.imageUrl =
+          categories[categoryName][
+            categories[categoryName].length - 1
+          ].imageUrl;
         console.log(categoryDetails);
         return (
-          <Link component={routerLink} to="/shop">
+          <Link component={routerLink} to={`shop/${categoryName}`}>
             <ImageListItem>
               <img
                 src={`${categoryDetails.imageUrl}?w=1000&fit=crop&auto=format`}
