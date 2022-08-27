@@ -21,15 +21,17 @@ export default function ButtonAppBar() {
     <Box sx={{ flexGrow: 1, width: "100%" }}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <SvgIcon component={CrownIcon} inheritViewBox />
-          </IconButton>
+          <Link component={RouterLink} to="/">
+            <IconButton
+              size="large"
+              edge="start"
+              color="inherit"
+              aria-label="menu"
+              sx={{ mr: 2 }}
+            >
+              <SvgIcon component={CrownIcon} inheritViewBox />
+            </IconButton>
+          </Link>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             {location.pathname.slice(1)}
           </Typography>

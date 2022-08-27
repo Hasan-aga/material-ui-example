@@ -3,6 +3,7 @@ import {
   Card,
   CardContent,
   Collapse,
+  Grid,
   List,
   ListItem,
   Typography,
@@ -22,25 +23,37 @@ const Checkout = function () {
   const cartTotal = useSelector(selectCartTotal);
   console.log("checkout with ", cartProducts);
   return (
-    <Box sx={{ display: "flex", padding: 10, height: "fit-content" }}>
-      <List>
-        {cartProducts.map((product) => (
-          <ListItem key={product.imageUrl}>
-            <TransitionGroup>
-              <Collapse key={product.name + 1}>
-                <MenuCard product={product} width={600} />
-              </Collapse>
-            </TransitionGroup>
-          </ListItem>
-        ))}
-      </List>
-      <Card sx={{ minWidth: 400, margin: 2, pl: 1, pt: 2 }}>
-        <CardContent>
-          <Typography variant="h5">Total: {cartTotal}</Typography>
-          <StripePayment />
-        </CardContent>
-      </Card>
-    </Box>
+    <Grid container justifyContent="center" alignItems="center">
+      <Grid item sm={12} md={6} pt={2}>
+        <List
+          sx={{
+            width: "100%",
+            bgcolor: "background.paper",
+            overflow: "auto",
+            maxHeight: "70vh",
+            "& ul": { padding: 0 },
+          }}
+        >
+          {cartProducts.map((product) => (
+            <ListItem key={product.imageUrl}>
+              <TransitionGroup>
+                <Collapse key={product.name + 1}>
+                  <MenuCard product={product} />
+                </Collapse>
+              </TransitionGroup>
+            </ListItem>
+          ))}
+        </List>
+      </Grid>
+      <Grid item sm={6} md={6}>
+        <Card>
+          <CardContent>
+            <Typography variant="h5">Total: {cartTotal}</Typography>
+            <StripePayment />
+          </CardContent>
+        </Card>
+      </Grid>
+    </Grid>
   );
 };
 
