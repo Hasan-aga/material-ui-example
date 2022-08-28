@@ -17,6 +17,8 @@ export const userReducer = function (state = INITIAL_USER_STATE, action) {
       return {
         ...state,
         error: null,
+        signUpError: null,
+        signInError: null,
         currentUser: payload,
       };
     case USER_TYPES.SIGN_IN_FAIL:

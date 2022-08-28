@@ -25,14 +25,13 @@ const SignHomepage = function () {
 
   return (
     <Container sx={{ mt: "2rem" }} maxWidth="sm">
-      {/* TODO: prevent buttons inside the accordion from activating onclick */}
       <Accordion onClick={handleAccordionClick} expanded={open}>
         <AccordionSummary
           expandIcon={<ExpandMore />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <Typography>Sign-in with email and password</Typography>
+          <Typography>Sign-in</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <SignIn />
