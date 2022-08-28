@@ -1,14 +1,22 @@
-import { ImageList, ImageListItem, ImageListItemBar } from "@mui/material";
+import {
+  ImageList,
+  ImageListItem,
+  ImageListItemBar,
+  useMediaQuery,
+} from "@mui/material";
 import { useSelector } from "react-redux";
 import { selectCategoriesMap } from "../../store/categories/categories.selector";
 import { Link } from "@mui/material";
 import { Link as routerLink } from "react-router-dom";
+import { useTheme } from "@emotion/react";
 
 const Homepage = () => {
   const categories = useSelector(selectCategoriesMap);
-  console.log(categories);
+  const theme = useTheme();
+  const isSm = useMediaQuery(theme.breakpoints.down("sm"));
+  console.log(useMediaQuery(theme.breakpoints.down("sm")));
   return (
-    <ImageList variant="woven" cols={5} gap={12}>
+    <ImageList variant="woven" cols={isSm ? 1 : 5} gap={12}>
       {Object.keys(categories).map((categoryName) => {
         const categoryDetails = {};
         categoryDetails.name = categoryName;
@@ -16,7 +24,6 @@ const Homepage = () => {
           categories[categoryName][
             categories[categoryName].length - 1
           ].imageUrl;
-        console.log(categoryDetails);
         return (
           <Link component={routerLink} to={`shop/${categoryName}`}>
             <ImageListItem>
