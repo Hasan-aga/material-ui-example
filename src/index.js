@@ -8,6 +8,7 @@ import { Provider } from "react-redux";
 import { store } from "./store/store";
 import { CssBaseline, ThemeProvider } from "@mui/material";
 import navyBlueTheme from "./themes/navy-blue.theme";
+import sailingTheme from "./themes/sailing.theme";
 
 if (process.env.NODE_ENV === "production") {
   console.log = () => {};
@@ -20,7 +21,7 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter>
-        <ThemeProvider theme={navyBlueTheme}>
+        <ThemeProvider theme={sailingTheme}>
           <CssBaseline enableColorScheme />
           <App />
         </ThemeProvider>
