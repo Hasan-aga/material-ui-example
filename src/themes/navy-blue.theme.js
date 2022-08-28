@@ -27,6 +27,9 @@ export const themeOptions = {
       main: "#81B29A",
     },
   },
+  typography: {
+    fontFamily: "Barlow Condensed",
+  },
 };
 
 const navyBlueTheme = createTheme({ ...themeOptions });

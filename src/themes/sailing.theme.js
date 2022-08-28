@@ -9,6 +9,7 @@ export const themeOptions = {
     secondary: {
       main: "#E63946",
       contrastText: "#ffffff",
+      light: "#e67b81",
     },
     background: {
       default: "#A8DADC",
@@ -26,6 +27,9 @@ export const themeOptions = {
     success: {
       main: "#A8DADC",
     },
+  },
+  typography: {
+    fontFamily: "Barlow Condensed",
   },
 };
 
